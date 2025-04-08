@@ -1,11 +1,11 @@
-🏆 H-4 (EXTRAER ARCHIVO DEL STAGE)
+🏆 H-5 (ENVIAR UNA RAMA REMOTA)
 
 
 | Hacks  | Details |
 |--------|------|
-| H-4	   | 	Extraer archivo de stage |
+| H-5	   | 	Enviar una rama remota |
 
-1. Crear un nuevo repositorio en github nombre:`git_h_4`.
+1. Crear un nuevo repositorio en github nombre:`git_h_5`.
 
 2. Crear un repositorio local
 git init
@@ -16,55 +16,56 @@ git remote add origin (pegar_la_ruta_del_repositorio_local)
 4. Verificamos la ruta remota
 git remote -v
 
-5. Crear 3 archivos foo.txt | bar.txt | qux.txt
-touch foo.txt
-touch bar.txt
-touch qux.txt
+5. Elaborar un archivo con el nombre de "inicio.txt"
+touch inicio.txt
 
-6. Comprobar que estan creados en nuestro local
-ls -l
-
-7. Toca ver el stage
-git status
-
-8. Anexamos los 3 archivos al stage
+6. Incorporar "inicio.txt" para un commit
 git add .
-
-9. Examinamos el stage
-git status
-
-10. Ahora toca extraer a "qux.txt" del stage y dejar los otros 2 archivos
-git reset -- qux.txt
-
-11. Indagamos que "qux.txt" no esta en el stage
- git status
-
-12. Resulta que ahora no queremos ninguno de los 2 archivos restante en el stage
-git reset --
-
-13. Volvemos a observar el status del stage
-git status
-
-14. Adjuntamos un cuarto archivo llamado "octocat.txt" 
-touch octocat
-
-15. Cuando se revisa de nuevo el stage debemos mirar los 4 archivos, que no estan seleccionados
-git status
-
-16. Los adjuntamos al stage para genrar el commit
-git add . git status git commit -m "feat: add 4 files"
-
-17. Resulta que se nos olvido agregar un 5 archivo llamado "delta.txt"
-touch delta.txt
-
-18. Bien, debemos agregar el archivo "delta.txt" al commit que se acaba de crear, esto lo podemos verificar 
-git log --oneline
-
-19. Agregamos el archivo al commit
-git add delta.txt git commit --amend -m "feat: add 5 files"
-
-20.Listo ahora se analiza el commit de vuelta y se hace push 
-git log --oneline
+git commit -m "feat: add inicio.txt"
 git push -u origin master
 
-21.Observar el repositorio remoto
+7. Ahora creamos una rama remota llamada "feature/actividades" y le adjuntamos 2 archivos "foo.txt" y "bar.txt"
+touch foo.txt
+touch bar.txt
+
+8. Producimos el commit, aunque antes creamos la rama y nos vamos a ella, para desde ahí hacer el commit
+git branch feature/actividades
+git switch feature/actividades
+git add .
+git status
+git commit -m "feat: add 2 files foo.txt and bar.txt"
+
+9. Aunque nos indican que falta crear otro archivo llamado "qux.txt" al commit
+touch qux.txt
+git add .
+git commit --amend -m "feat: add 3 files foo.txt, bar.txt, qux.txt"
+
+10. Enviamos la rama remota
+git push -u origin feature/actividades
+
+11. Verificar en el repositorio remoto que se envio la rama.
+
+12. Regresamos a master
+git switch master
+
+13. Creamos una nueva rama llamada "hotfix/registroDeUsuario" por una emergencia, en ella crear un archivo llamado "registro_de_usuarios.txt"
+git branch hotfix/registroDeUsuario
+git switch hotfix/registroDeUsuario
+
+touch registro_de_usuarios.txt
+git add . 
+git commit -m "hotfix: add registro_de_usuarios.txt"
+
+14. Enviamos la rama "hotfix/registroDeUsuario" al repositorio remoto y revisamos el repositorio remoto
+git push -u origin hotfix/registroDeUsuario
+
+15. Retornamos a master y analizamos todas las las ramas locales y remotas
+git switch master
+git branch -a
+
+16. Eliminamos la rama remota "feature/actividades" y revisamos el repositorio
+git switch master
+git push origin --delete feature/actividades
+
+17. Hacemos una mirada a las ramas
+git branch -a
